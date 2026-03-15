@@ -114,31 +114,36 @@
                 const onPath = pathNodes.includes(i) && !isSrc && !isDst;
                 const cls = 'node-circle' + (isSrc ? ' selected-src' : (isDst ? ' selected-dst' : (onPath ? ' on-path pulse' : '')));
 
+                const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                group.setAttribute('class', 'node-group');
+                group.setAttribute('transform', `translate(${x}, ${y})`);
+                group.addEventListener('click', () => onNodeClick(i));
+
                 // Glow ring for path nodes
                 if (onPath || isSrc || isDst) {
                     const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                    ring.setAttribute('cx', x); ring.setAttribute('cy', y); ring.setAttribute('r', NR + 8);
+                    ring.setAttribute('r', NR + 8);
                     ring.setAttribute('fill', 'none');
                     ring.setAttribute('stroke', isSrc ? 'rgba(79,142,247,0.25)' : isDst ? 'rgba(167,139,250,0.25)' : 'rgba(52,211,153,0.2)');
                     ring.setAttribute('stroke-width', '2');
-                    g.appendChild(ring);
+                    group.appendChild(ring);
                 }
 
                 const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                circle.setAttribute('cx', x); circle.setAttribute('cy', y); circle.setAttribute('r', NR);
+                circle.setAttribute('r', NR);
                 circle.setAttribute('class', cls);
-                circle.addEventListener('click', () => onNodeClick(i));
-                g.appendChild(circle);
+                group.appendChild(circle);
 
                 const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                label.setAttribute('x', x); label.setAttribute('y', y);
                 label.setAttribute('class', 'node-label'); label.textContent = name;
-                g.appendChild(label);
+                group.appendChild(label);
 
                 const idx = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                idx.setAttribute('x', x); idx.setAttribute('y', y + NR + 14);
+                idx.setAttribute('y', NR + 16);
                 idx.setAttribute('class', 'node-index'); idx.textContent = '[' + i + ']';
-                g.appendChild(idx);
+                group.appendChild(idx);
+
+                g.appendChild(group);
             });
         }
 

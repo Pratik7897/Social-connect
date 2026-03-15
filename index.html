@@ -97,21 +97,23 @@
                 <div class="canvas-hint">Click a node to select as source · Drag to pan</div>
             </div>
 
-            <svg id="graph" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-                        <path d="M0,0 L6,3 L0,6" fill="none" stroke="#4f8ef7" stroke-width="1.2" />
-                    </marker>
-                    <filter id="glow">
-                        <feGaussianBlur stdDeviation="4" result="blur" />
-                        <feMerge>
-                            <feMergeNode in="blur" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                </defs>
-                <g id="graphGroup"></g>
-            </svg>
+            <div class="svg-container">
+                <svg id="graph" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                            <path d="M0,0 L6,3 L0,6" fill="none" stroke="#4f8ef7" stroke-width="1.2" />
+                        </marker>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="4" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <g id="graphGroup"></g>
+                </svg>
+            </div>
 
             <!-- Stats Strip -->
             <div class="stats-strip">
