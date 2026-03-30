@@ -1,0 +1,102 @@
+/* ── RESET & ROOT VARIABLES ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg-base: #030712;
+    --surface: rgba(17, 24, 39, 0.75);
+    --card: rgba(31, 41, 55, 0.4);
+    --border: rgba(255, 255, 255, 0.1);
+    --border-hover: rgba(255, 255, 255, 0.22);
+    --accent-glow: rgba(59, 130, 246, 0.5);
+    --accent:  #3b82f6;
+    --accent2: #8b5cf6;
+    --accent3: #ec4899;
+    --green:  #10b981;
+    --red:    #ef4444;
+    --amber:  #f59e0b;
+    --cyan:   #06b6d4;
+    --text:   #f8fafc;
+    --muted:  #94a3b8;
+    --header-h: 85px;
+    --tabbar-h: 54px;
+    --banner-h: 70px;
+}
+
+/* ── BASE BODY ── */
+html, body {
+    background-color: var(--bg-base);
+    background-image:
+        radial-gradient(ellipse at 15% 50%, rgba(59,130,246,0.12) 0%, transparent 35%),
+        radial-gradient(ellipse at 85% 20%, rgba(139,92,246,0.12) 0%, transparent 35%),
+        radial-gradient(ellipse at 50% 85%, rgba(16,185,129,0.08) 0%, transparent 30%);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ── ANIMATED BACKGROUND ORBS ── */
+body::before, body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 0;
+    animation: orbFloat 14s ease-in-out infinite;
+}
+body::before {
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(59,130,246,0.07), transparent 70%);
+    top: 8%; left: 3%;
+}
+body::after {
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(139,92,246,0.07), transparent 70%);
+    bottom: 5%; right: 3%;
+    animation-delay: -7s;
+}
+@keyframes orbFloat {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    33%       { transform: translate(30px,-40px) scale(1.05); }
+    66%       { transform: translate(-20px,30px) scale(0.97); }
+}
+
+/* ── SHARED ENTRY ANIMATIONS ── */
+@keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}
+@keyframes slideInLeft {
+    from { transform: translateX(-20px); opacity: 0; }
+    to   { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideInRight {
+    from { transform: translateX(20px); opacity: 0; }
+    to   { transform: translateX(0); opacity: 1; }
+}
+@keyframes tabIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmerSweep {
+    0% { left: -100%; } 60%, 100% { left: 150%; }
+}
+@keyframes dotPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%       { transform: scale(1.5); opacity: 0.6; }
+}
+@keyframes badgePulse {
+    0%, 100% { box-shadow: 0 0 14px rgba(139,92,246,0.22); }
+    50%       { box-shadow: 0 0 28px rgba(139,92,246,0.50); }
+}
+@keyframes floaticon {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%       { transform: translateY(-5px) rotate(5deg); }
+}

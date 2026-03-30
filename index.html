@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Social Connect — Friend Network Analyzer</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap"
-        rel="stylesheet" />
+    <title>Social Connect — ADS Visualizer 2025-26</title>
+    <meta name="description" content="Interactive visualizer for BST, AVL Trees, B-Trees, and Graph Algorithms — ADS 2025-26" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
     <!-- HEADER -->
@@ -22,116 +19,388 @@
                 <div class="logo-sub">Friend Network Analyzer · ADS 2025-26</div>
             </div>
         </div>
-        <div class="badge">Graphs + BST · C++ Visualizer</div>
+        <div class="badge">BST · AVL · B-Tree · Graphs · JS</div>
     </header>
 
-    <!-- LAYOUT -->
-    <div class="layout">
+    <!-- TAB BAR -->
+    <nav class="tab-bar">
+        <button class="tab-btn active" id="tab-bst-btn" onclick="switchTab('bst')">
+            <span class="tab-icon">🌳</span><span class="tab-label">Binary Search Tree</span>
+        </button>
+        <button class="tab-btn" id="tab-avl-btn" onclick="switchTab('avl')">
+            <span class="tab-icon">⚖️</span><span class="tab-label">AVL Trees</span>
+        </button>
+        <button class="tab-btn" id="tab-btree-btn" onclick="switchTab('btree')">
+            <span class="tab-icon">📦</span><span class="tab-label">B-Trees</span>
+        </button>
+        <button class="tab-btn" id="tab-quiz-btn" onclick="switchTab('quiz')">
+            <span class="tab-icon">🧠</span><span class="tab-label">ADS Quiz</span>
+        </button>
+        <button class="tab-btn" id="tab-graph-btn" onclick="switchTab('graph')">
+            <span class="tab-icon">🕸️</span><span class="tab-label">Graph Algorithms</span>
+        </button>
+    </nav>
 
-        <!-- SIDEBAR -->
-        <aside class="sidebar">
-
-            <!-- BST Search -->
-            <div>
-                <div class="panel-title">🔍 BST User Search</div>
-                <div class="control-group">
-                    <label>Enter username</label>
-                    <input type="text" id="searchInput" placeholder="e.g. Diana" />
-                    <button class="btn btn-primary" onclick="bstSearch()">Search in BST</button>
+    <!-- ══════════════ TAB 1: BST ══════════════ -->
+    <div id="tab-bst" class="tab-content active">
+        <div class="concept-banner bst-banner">
+            <div class="cb-left">
+                <div class="cb-tag">Unit 1 — Tree Data Structures</div>
+                <div class="cb-title">Binary Search Tree (BST)</div>
+                <div class="cb-desc">O(log n) search · insert · delete · Inorder traversal gives sorted output</div>
+            </div>
+            <div class="cb-apps">
+                <span class="app-tag">📁 File Explorers</span>
+                <span class="app-tag">🔤 Autocomplete</span>
+                <span class="app-tag">✏️ Spell Checkers</span>
+                <span class="app-tag">🗄️ DB Indexing</span>
+            </div>
+        </div>
+        <div class="layout">
+            <aside class="sidebar">
+                <div>
+                    <div class="panel-title">➕ Insert User</div>
+                    <div class="control-group">
+                        <input type="text" id="bst-insert-input" placeholder="e.g. Zara, John..." />
+                        <button class="btn btn-primary" onclick="bstInsert()">Insert into BST</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <div class="panel-title">🔍 Search User</div>
+                    <div class="control-group">
+                        <input type="text" id="bst-search-input" placeholder="e.g. Diana" />
+                        <button class="btn btn-primary" onclick="bstSearchUser()">Search in BST</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <div class="panel-title">🗑️ Delete User</div>
+                    <div class="control-group">
+                        <input type="text" id="bst-delete-input" placeholder="e.g. Bob" />
+                        <button class="btn btn-danger" onclick="bstDelete()">Delete from BST</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <div class="panel-title">📋 Traversals</div>
+                    <div class="control-group">
+                        <button class="btn btn-secondary" onclick="bstListAll()">Inorder (A→Z)</button>
+                        <button class="btn btn-secondary" onclick="bstPreorder()">Preorder</button>
+                        <button class="btn btn-secondary" onclick="bstReset()">↺ Reset Default</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <div class="panel-title">🖥 Output Log</div>
+                    <div class="log-box" id="bst-log">
+                        <div class="log-dim">// BST ready. 7 users loaded.</div>
+                    </div>
+                </div>
+            </aside>
+            <div class="canvas-area">
+                <div class="canvas-header">
+                    <div class="canvas-title">BST Structure — Visual Tree</div>
+                    <div class="canvas-hint">Left child &lt; Parent &lt; Right child · Inorder = alphabetical</div>
+                </div>
+                <div class="svg-container">
+                    <svg id="bst-svg" xmlns="http://www.w3.org/2000/svg"><g id="bst-group"></g></svg>
+                </div>
+                <div class="stats-strip">
+                    <div class="stat"><div class="stat-label">Nodes</div><div class="stat-value blue" id="bst-stat-nodes">7</div></div>
+                    <div class="stat"><div class="stat-label">Height</div><div class="stat-value purple" id="bst-stat-height">—</div></div>
+                    <div class="stat"><div class="stat-label">Last Op</div><div class="stat-value green" id="bst-stat-op">—</div></div>
+                    <div class="stat"><div class="stat-label">Type</div><div class="stat-value amber">BST</div></div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="divider"></div>
-
-            <!-- Shortest Path -->
-            <div>
-                <div class="panel-title">🛤 Shortest Path (Dijkstra)</div>
-                <div class="control-group">
-                    <label>Source user</label>
-                    <select id="srcSelect"></select>
-                    <label>Destination user</label>
-                    <select id="dstSelect"></select>
-                    <button class="btn btn-primary" onclick="runDijkstra()">Find Connection</button>
-                    <button class="btn btn-secondary" onclick="clearPath()">Clear Path</button>
+    <!-- ══════════════ TAB 2: AVL ══════════════ -->
+    <div id="tab-avl" class="tab-content">
+        <div class="concept-banner avl-banner">
+            <div class="cb-left">
+                <div class="cb-tag">Unit 2 — Balanced Trees</div>
+                <div class="cb-title">AVL Trees (Self-Balancing BST)</div>
+                <div class="cb-desc">Balance Factor ∈ {−1, 0, 1} · LL / RR / LR / RL rotations · Guaranteed O(log n) worst-case</div>
+            </div>
+            <div class="cb-apps">
+                <span class="app-tag">☕ Java TreeMap</span>
+                <span class="app-tag">⚙️ C++ STL map</span>
+                <span class="app-tag">🐘 PostgreSQL</span>
+                <span class="app-tag">🐬 MySQL</span>
+            </div>
+        </div>
+        <div class="layout">
+            <aside class="sidebar">
+                <div>
+                    <div class="panel-title">➕ Insert Key</div>
+                    <div class="control-group">
+                        <input type="number" id="avl-insert-input" placeholder="Integer key (e.g. 30)" />
+                        <button class="btn btn-primary" onclick="avlInsertKey()">Insert into AVL</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <div class="panel-title">🗑️ Delete Key</div>
+                    <div class="control-group">
+                        <input type="number" id="avl-delete-input" placeholder="Key to delete" />
+                        <button class="btn btn-danger" onclick="avlDeleteKey()">Delete from AVL</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <div class="panel-title">🔁 Rotation Demos</div>
+                    <div class="control-group">
+                        <button class="btn btn-secondary" onclick="avlDemo(1)">LL Rotation — Insert 3,2,1</button>
+                        <button class="btn btn-secondary" onclick="avlDemo(2)">RR Rotation — Insert 1,2,3</button>
+                        <button class="btn btn-secondary" onclick="avlDemo(3)">LR Rotation — Insert 3,1,2</button>
+                        <button class="btn btn-secondary" onclick="avlDemo(4)">RL Rotation — Insert 1,3,2</button>
+                        <button class="btn btn-secondary" onclick="avlReset()">↺ Clear AVL</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <div class="panel-title">🖥 Rotation Log</div>
+                    <div class="log-box" id="avl-log">
+                        <div class="log-dim">// Insert keys to see AVL rotations.</div>
+                    </div>
+                </div>
+            </aside>
+            <div class="canvas-area">
+                <div class="canvas-header">
+                    <div class="canvas-title">AVL Tree — Balance Factors Visualized</div>
+                    <div class="canvas-hint">BF = h(left) − h(right) · Red BF = imbalanced · Rotation auto-fixes</div>
+                </div>
+                <div class="svg-container">
+                    <svg id="avl-svg" xmlns="http://www.w3.org/2000/svg"><g id="avl-group"></g></svg>
+                </div>
+                <div class="stats-strip">
+                    <div class="stat"><div class="stat-label">Nodes</div><div class="stat-value blue" id="avl-stat-nodes">0</div></div>
+                    <div class="stat"><div class="stat-label">Height</div><div class="stat-value purple" id="avl-stat-height">—</div></div>
+                    <div class="stat"><div class="stat-label">Rotations</div><div class="stat-value green" id="avl-stat-rot">0</div></div>
+                    <div class="stat"><div class="stat-label">Type</div><div class="stat-value amber">AVL</div></div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="divider"></div>
-
-            <!-- Show Friends -->
-            <div>
-                <div class="panel-title">👥 Display Friends</div>
-                <div class="control-group">
-                    <label>Select user</label>
-                    <select id="friendsSelect"></select>
-                    <button class="btn btn-secondary" onclick="showFriends()">Show Friends</button>
+    <!-- ══════════════ TAB 3: B-TREE ══════════════ -->
+    <div id="tab-btree" class="tab-content">
+        <div class="concept-banner btree-banner">
+            <div class="cb-left">
+                <div class="cb-tag">Unit 3 — Disk-Optimized Trees</div>
+                <div class="cb-title">B-Trees &amp; B+ Trees</div>
+                <div class="cb-desc">Min-degree t=2 · Max 3 keys/node · Splits on overflow · Disk page optimized · O(log n)</div>
+            </div>
+            <div class="cb-apps">
+                <span class="app-tag">📀 NTFS / ext4</span>
+                <span class="app-tag">🗄️ DBMS Index</span>
+                <span class="app-tag">🔍 Google Index</span>
+                <span class="app-tag">💾 SQLite</span>
+            </div>
+        </div>
+        <div class="layout">
+            <aside class="sidebar">
+                <div>
+                    <div class="panel-title">➕ Insert Key</div>
+                    <div class="control-group">
+                        <input type="number" id="bt-insert-input" placeholder="Integer key..." />
+                        <button class="btn btn-primary" onclick="btreeInsert()">Insert into B-Tree</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <div class="panel-title">🔍 Search Key</div>
+                    <div class="control-group">
+                        <input type="number" id="bt-search-input" placeholder="Key to find..." />
+                        <button class="btn btn-primary" onclick="btreeSearch()">Search B-Tree</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <div class="panel-title">🔁 Quick Demos</div>
+                    <div class="control-group">
+                        <button class="btn btn-secondary" onclick="btreeDemo()">Demo: Insert 1–10 (watch splits!)</button>
+                        <button class="btn btn-secondary" onclick="btreeReset()">↺ Reset B-Tree</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <div class="panel-title">🖥 Operation Log</div>
+                    <div class="log-box" id="bt-log">
+                        <div class="log-dim">// B-Tree (t=2, max 3 keys/node) ready.</div>
+                    </div>
+                </div>
+            </aside>
+            <div class="canvas-area">
+                <div class="canvas-header">
+                    <div class="canvas-title">B-Tree Visualization — Disk Page Blocks</div>
+                    <div class="canvas-hint">Each rectangle = one disk page · Splits propagate upward</div>
+                </div>
+                <div class="svg-container">
+                    <svg id="bt-svg" xmlns="http://www.w3.org/2000/svg"><g id="bt-group"></g></svg>
+                </div>
+                <div class="stats-strip">
+                    <div class="stat"><div class="stat-label">Total Keys</div><div class="stat-value blue" id="bt-stat-keys">0</div></div>
+                    <div class="stat"><div class="stat-label">Nodes</div><div class="stat-value purple" id="bt-stat-nodes">0</div></div>
+                    <div class="stat"><div class="stat-label">Height</div><div class="stat-value green" id="bt-stat-height">—</div></div>
+                    <div class="stat"><div class="stat-label">Order</div><div class="stat-value amber">t = 2</div></div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="divider"></div>
-
-            <!-- User List (BST Inorder) -->
-            <div>
-                <div class="panel-title">📋 All Users (BST Inorder A→Z)</div>
-                <div class="user-chips" id="userChips"></div>
-                <button class="btn btn-secondary" style="margin-top:10px" onclick="listAllUsers()">List All
-                    Users</button>
+    <!-- ══════════════ TAB 4: GRAPH ALGORITHMS ══════════════ -->
+    <div id="tab-graph" class="tab-content">
+        <div class="concept-banner graph-banner">
+            <div class="cb-left">
+                <div class="cb-tag">Unit 4 — Graph Theory</div>
+                <div class="cb-title">Graph Algorithms — BFS · DFS · Dijkstra · Prim's MST</div>
+                <div class="cb-desc">BFS = shortest hops · DFS = full traversal · Dijkstra = weighted path · Prim's = spanning tree</div>
             </div>
-
-            <div class="divider"></div>
-
-            <!-- Output Log -->
-            <div>
-                <div class="panel-title">🖥 Output Log</div>
-                <div class="log-box" id="logBox">
-                    <div class="log-dim">// Program ready. Run operations above.</div>
+            <div class="cb-apps">
+                <span class="app-tag">🗺️ Google Maps</span>
+                <span class="app-tag">📱 Social Networks</span>
+                <span class="app-tag">🌐 Network Routing</span>
+                <span class="app-tag">📦 Supply Chain</span>
+            </div>
+        </div>
+        <div class="layout">
+            <aside class="sidebar">
+                <div>
+                    <div class="panel-title" style="--dot-color:#3b82f6">🔵 BFS Traversal</div>
+                    <div class="control-group">
+                        <label>Start node</label>
+                        <select id="bfs-src"></select>
+                        <button class="btn btn-primary" onclick="runBFS()">Run BFS (animated)</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <div class="panel-title">🟣 DFS Traversal</div>
+                    <div class="control-group">
+                        <label>Start node</label>
+                        <select id="dfs-src"></select>
+                        <button class="btn btn-secondary" onclick="runDFS()">Run DFS (animated)</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <div class="panel-title">🛤 Dijkstra Shortest Path</div>
+                    <div class="control-group">
+                        <label>Source</label>
+                        <select id="srcSelect"></select>
+                        <label>Destination</label>
+                        <select id="dstSelect"></select>
+                        <button class="btn btn-primary" onclick="runDijkstra()">Find Shortest Path</button>
+                        <button class="btn btn-secondary" onclick="clearPath()">Clear</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <div class="panel-title">🌲 Prim's MST</div>
+                    <div class="control-group">
+                        <label>Start vertex</label>
+                        <select id="mst-src"></select>
+                        <button class="btn btn-secondary" onclick="runMST()">Build Spanning Tree</button>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                    <div class="panel-title">🖥 Output Log</div>
+                    <div class="log-box" id="graph-log">
+                        <div class="log-dim">// Graph ready. 7 users, 7 edges loaded.</div>
+                    </div>
+                </div>
+            </aside>
+            <div class="canvas-area">
+                <div class="canvas-header">
+                    <div class="canvas-title">Network Graph — Adjacency List Visualization</div>
+                    <div class="canvas-hint">Click node to select · BFS=blue · DFS=purple · Dijkstra=teal · MST=green</div>
+                </div>
+                <div class="svg-container">
+                    <svg id="graph" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                                <path d="M0,0 L6,3 L0,6" fill="none" stroke="#4f8ef7" stroke-width="1.2" />
+                            </marker>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="4" result="blur" />
+                                <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                            </filter>
+                        </defs>
+                        <g id="graphGroup"></g>
+                    </svg>
+                </div>
+                <div class="stats-strip">
+                    <div class="stat"><div class="stat-label">Vertices (V)</div><div class="stat-value blue" id="statV">7</div></div>
+                    <div class="stat"><div class="stat-label">Edges (E)</div><div class="stat-value purple" id="statE">7</div></div>
+                    <div class="stat"><div class="stat-label">Path / Hops</div><div class="stat-value green" id="statPath">—</div></div>
+                    <div class="stat"><div class="stat-label">Mode</div><div class="stat-value amber" id="statMode">—</div></div>
                 </div>
             </div>
+        </div>
+    </div>
 
-        </aside>
-
-        <!-- CANVAS -->
-        <div class="canvas-area">
-            <div class="canvas-header">
-                <div class="canvas-title">Network Graph — Adjacency List Visualization</div>
-                <div class="canvas-hint">Click a node to select as source · Drag to pan</div>
+    <!-- ══════════════ TAB 5: QUIZ ══════════════ -->
+    <div id="tab-quiz" class="tab-content">
+        <div class="concept-banner quiz-banner">
+            <div class="cb-left">
+                <div class="cb-tag">ADS Challenge — All Units</div>
+                <div class="cb-title">🧠 ADS Knowledge Quiz — 15 Questions</div>
+                <div class="cb-desc">Test your understanding of BST · AVL · B-Trees · Graph Algorithms</div>
             </div>
-
-            <div class="svg-container">
-                <svg id="graph" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-                            <path d="M0,0 L6,3 L0,6" fill="none" stroke="#4f8ef7" stroke-width="1.2" />
-                        </marker>
-                        <filter id="glow">
-                            <feGaussianBlur stdDeviation="4" result="blur" />
-                            <feMerge>
-                                <feMergeNode in="blur" />
-                                <feMergeNode in="SourceGraphic" />
-                            </feMerge>
-                        </filter>
-                    </defs>
-                    <g id="graphGroup"></g>
-                </svg>
+            <div class="cb-apps">
+                <span class="app-tag">⏱ 30s/Q</span>
+                <span class="app-tag">✅ Instant Feedback</span>
+                <span class="app-tag">📊 Score Tracker</span>
+                <span class="app-tag">💡 Explanations</span>
             </div>
-
-            <!-- Stats Strip -->
-            <div class="stats-strip">
-                <div class="stat">
-                    <div class="stat-label">Total Users (V)</div>
-                    <div class="stat-value blue" id="statV">7</div>
+        </div>
+        <div class="quiz-wrapper" id="quiz-wrapper">
+            <!-- Start Screen -->
+            <div class="quiz-start" id="quiz-start">
+                <span class="quiz-start-icon">🏆</span>
+                <div class="quiz-start-title">ADS Quiz Challenge</div>
+                <div class="quiz-start-sub">15 questions covering all four ADS topics.<br>Each question has 30 seconds. Can you score 100%?</div>
+                <div class="quiz-topics">
+                    <span class="quiz-topic-badge">🌳 Binary Search Tree</span>
+                    <span class="quiz-topic-badge">⚖️ AVL Trees</span>
+                    <span class="quiz-topic-badge">📦 B-Trees</span>
+                    <span class="quiz-topic-badge">🕸️ Graph Algorithms</span>
                 </div>
-                <div class="stat">
-                    <div class="stat-label">Friendships (E)</div>
-                    <div class="stat-value purple" id="statE">7</div>
+                <button class="quiz-start-btn" onclick="startQuiz()">🚀 Start Quiz</button>
+            </div>
+            <!-- Active Quiz Screen -->
+            <div class="quiz-active" id="quiz-active" style="display:none">
+                <div class="quiz-meta">
+                    <div class="quiz-progress-bar-wrap"><div class="quiz-progress-bar" id="quiz-progress"></div></div>
+                    <span class="quiz-q-counter" id="quiz-counter">Q 1 / 15</span>
+                    <div class="quiz-timer" id="quiz-timer">30</div>
                 </div>
-                <div class="stat">
-                    <div class="stat-label">Path Length</div>
-                    <div class="stat-value green" id="statPath">—</div>
+                <div id="quiz-topic-chip" class="quiz-topic-chip">BST</div>
+                <div class="quiz-question-card">
+                    <div class="quiz-question-text" id="quiz-question"></div>
+                    <div class="quiz-options" id="quiz-options"></div>
+                    <div class="quiz-explanation" id="quiz-explanation" style="display:none"></div>
                 </div>
-                <div class="stat">
-                    <div class="stat-label">Conn. Score</div>
-                    <div class="stat-value amber" id="statScore">—</div>
+                <button class="quiz-next-btn" id="quiz-next-btn" onclick="nextQuestion()" style="display:none">Next Question →</button>
+                <div class="quiz-score-mini" id="quiz-score-mini">Score: 0 / 0</div>
+            </div>
+            <!-- End Screen -->
+            <div class="quiz-end" id="quiz-end" style="display:none">
+                <div class="quiz-score-circle" id="quiz-score-circle">
+                    <div class="quiz-score-inner">
+                        <span class="quiz-score-num" id="quiz-final-num">0</span>
+                        <span class="quiz-score-denom">/ 15</span>
+                    </div>
+                </div>
+                <div class="quiz-end-title" id="quiz-end-title">Well Done!</div>
+                <div class="quiz-end-badge" id="quiz-end-badge">🥇 ADS Expert</div>
+                <div class="quiz-end-msg" id="quiz-end-msg"></div>
+                <div class="quiz-end-btns">
+                    <button class="btn-restart" onclick="startQuiz()">🔄 Play Again</button>
                 </div>
             </div>
         </div>
@@ -139,5 +408,4 @@
 
     <script src="script.js"></script>
 </body>
-
 </html>

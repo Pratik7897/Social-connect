@@ -1,0 +1,77 @@
+/* ══════════════════════════════════════════════
+   GRAPH SVG STYLES — Network Visualization
+══════════════════════════════════════════════ */
+.edge-line { stroke: rgba(255,255,255,0.13); stroke-width: 2.5; transition: all 0.4s ease; }
+
+.edge-line.path-edge {
+    stroke: var(--cyan); stroke-width: 4;
+    stroke-dasharray: 10 5; animation: dash 1s linear infinite;
+    filter: drop-shadow(0 0 8px rgba(6,182,212,0.6));
+}
+.edge-line.mst-edge  { stroke: var(--green); stroke-width: 4; filter: drop-shadow(0 0 10px rgba(16,185,129,0.6)); }
+.edge-line.bfs-edge  { stroke: var(--accent); stroke-width: 3.5; filter: drop-shadow(0 0 6px rgba(59,130,246,0.6)); }
+.edge-line.dfs-edge  { stroke: #8b5cf6; stroke-width: 3.5; filter: drop-shadow(0 0 6px rgba(139,92,246,0.6)); }
+
+@keyframes dash { to { stroke-dashoffset: -30; } }
+
+.edge-weight {
+    fill: #e2e8f0; font-family: 'Space Mono', monospace;
+    font-size: 12px; font-weight: bold; text-anchor: middle;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.7));
+}
+
+.node-group { cursor: pointer; }
+.node-group:hover .node-circle {
+    stroke: var(--accent); fill: #253347;
+    filter: drop-shadow(0 0 18px var(--accent-glow));
+}
+.node-circle {
+    fill: #1e293b; stroke: rgba(255,255,255,0.2); stroke-width: 2.5;
+    transition: all 0.35s ease;
+}
+.node-circle.selected-src {
+    stroke: var(--accent); fill: rgba(59,130,246,0.18); stroke-width: 3.5;
+    filter: drop-shadow(0 0 18px var(--accent-glow));
+}
+.node-circle.selected-dst {
+    stroke: var(--accent2); fill: rgba(139,92,246,0.18); stroke-width: 3.5;
+    filter: drop-shadow(0 0 18px rgba(139,92,246,0.6));
+}
+.node-circle.on-path {
+    stroke: var(--cyan); fill: rgba(6,182,212,0.18); stroke-width: 3.5;
+    filter: drop-shadow(0 0 18px rgba(6,182,212,0.6));
+    animation: pulseGreen 2s ease-in-out infinite;
+}
+.node-circle.bfs-visiting {
+    stroke: var(--accent); fill: rgba(59,130,246,0.35); stroke-width: 4;
+    filter: drop-shadow(0 0 24px rgba(59,130,246,0.9));
+}
+.node-circle.bfs-visited {
+    stroke: var(--accent); fill: rgba(59,130,246,0.12); stroke-width: 2.5;
+}
+.node-circle.dfs-visiting {
+    stroke: #8b5cf6; fill: rgba(139,92,246,0.35); stroke-width: 4;
+    filter: drop-shadow(0 0 24px rgba(139,92,246,0.9));
+}
+.node-circle.dfs-visited {
+    stroke: #8b5cf6; fill: rgba(139,92,246,0.12); stroke-width: 2.5;
+}
+.node-circle.mst-node {
+    stroke: var(--green); fill: rgba(16,185,129,0.18); stroke-width: 3.5;
+    filter: drop-shadow(0 0 14px rgba(16,185,129,0.7));
+}
+
+@keyframes pulseGreen {
+    0%,100% { filter: drop-shadow(0 0 12px rgba(6,182,212,0.35)); }
+    50%      { filter: drop-shadow(0 0 28px rgba(6,182,212,1)); }
+}
+
+.node-label {
+    fill: #fff; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 12px;
+    text-anchor: middle; dominant-baseline: central;
+    pointer-events: none; user-select: none;
+}
+.node-index {
+    fill: var(--accent2); font-family: 'Space Mono', monospace;
+    font-size: 9px; text-anchor: middle; pointer-events: none;
+}
