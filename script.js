@@ -22,6 +22,25 @@ function switchTab(tab) {
     if (tab === 'graph') { setTimeout(() => renderGraph(), 50); }
 }
 
+// ── THEME SYSTEM ──
+function toggleTheme() {
+    const isLight = document.documentElement.classList.toggle('light-theme');
+    localStorage.setItem('social-connect-theme', isLight ? 'light' : 'dark');
+    const toggleIcon = document.getElementById('theme-toggle-icon');
+    if (toggleIcon) toggleIcon.textContent = isLight ? '🌙' : '☀️';
+}
+// Apply saved theme on load
+(function() {
+    const savedTheme = localStorage.getItem('social-connect-theme');
+    if (savedTheme === 'light') {
+        document.documentElement.classList.add('light-theme');
+        window.addEventListener('DOMContentLoaded', () => {
+            const toggleIcon = document.getElementById('theme-toggle-icon');
+            if (toggleIcon) toggleIcon.textContent = '🌙';
+        });
+    }
+})();
+
 // ── LOG HELPERS ──
 function log(boxId, html) {
     const box = document.getElementById(boxId);
@@ -84,7 +103,7 @@ class UserBST {
 
 const bst = new UserBST();
 const DEFAULT_USERS = ["Alice","Bob","Charlie","Diana","Eve","Frank","Grace"];
-DEFAULT_USERS.forEach(u => bst.insert(u));
+// Removed initial load: DEFAULT_USERS.forEach(u => bst.insert(u));
 
 // BST tree layout (Reingold-Tilford simplified)
 let bstHighlight = null;

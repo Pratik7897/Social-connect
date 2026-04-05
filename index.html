@@ -19,7 +19,12 @@
                 <div class="logo-sub">Friend Network Analyzer · ADS 2025-26</div>
             </div>
         </div>
-        <div class="badge">BST · AVL · B-Tree · Graphs · JS</div>
+        <div class="header-actions">
+            <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle">
+                <span id="theme-toggle-icon">☀️</span>
+            </button>
+            <div class="badge">BST · AVL · B-Tree · Graphs · JS</div>
+        </div>
     </header>
 
     <!-- TAB BAR -->
@@ -94,7 +99,7 @@
                 <div>
                     <div class="panel-title">🖥 Output Log</div>
                     <div class="log-box" id="bst-log">
-                        <div class="log-dim">// BST ready. 7 users loaded.</div>
+                        <div class="log-dim">// BST ready. Multi-node friend tree ready.</div>
                     </div>
                 </div>
             </aside>
@@ -107,9 +112,9 @@
                     <svg id="bst-svg" xmlns="http://www.w3.org/2000/svg"><g id="bst-group"></g></svg>
                 </div>
                 <div class="stats-strip">
-                    <div class="stat"><div class="stat-label">Nodes</div><div class="stat-value blue" id="bst-stat-nodes">7</div></div>
-                    <div class="stat"><div class="stat-label">Height</div><div class="stat-value purple" id="bst-stat-height">—</div></div>
-                    <div class="stat"><div class="stat-label">Last Op</div><div class="stat-value green" id="bst-stat-op">—</div></div>
+                    <div class="stat"><div class="stat-label">Nodes</div><div class="stat-value blue" id="bst-stat-nodes">0</div></div>
+                    <div class="stat"><div class="stat-label">Height</div><div class="stat-value purple" id="bst-stat-height">0</div></div>
+                    <div class="stat"><div class="stat-label">Last Op</div><div class="stat-value green" id="bst-stat-op">LOADED</div></div>
                     <div class="stat"><div class="stat-label">Type</div><div class="stat-value amber">BST</div></div>
                 </div>
             </div>
